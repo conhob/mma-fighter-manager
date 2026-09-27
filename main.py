@@ -1,38 +1,39 @@
 fighters = []
 
+class Fighter:
+    def __init__(self, name, age, weight):
+        self.name = name 
+        self.age = age
+        self.weight = weight
+
+    def __str__(self):
+        return f"{self.name} | {self.age} years old | {self.weight} kg"
+
 def create_fighter(fighters):
     name = input("\nFighter name: ")
     age = int(input("Age: "))
     weight = float(input("Weight(kg): "))
     
-    fighter = {
-        "name": name,
-        "age": age,
-        "weight": weight
-    }
+    fighter = Fighter(name, age, weight)
     
     fighters.append(fighter)        
     print("\nFighter created successfully!")
-    print(f"\n{fighter['name']} \n{fighter['age']} years old \n{fighter['weight']} kg")
+    print(fighter)
 
-def list_fighters():
+def list_fighters(fighters):
     if not fighters:
         print("\nNo fighter registered")
     else:
         for fighter in fighters:
-            print(
-                f"{fighter['name']} | "
-                f"{fighter['age']} years old | "
-                f"{fighter['weight']} kg"
-            )
+            print(fighter)
 
-def search_fighters():
+def search_fighters(fighters):
     search = input("Fighter's name: ").casefold()
     
     matches = []
     
     for fighter in fighters:
-        if search in fighter["name"].casefold():
+        if search in fighter.name.casefold():
             matches.append(fighter)
     
     if not matches:
@@ -40,37 +41,33 @@ def search_fighters():
     else:
         print("\nFighters found:")
         for fighter in matches:
-            print(
-                f"{fighter['name']} | "
-                f"{fighter['age']} years old | "
-                f"{fighter['weight']} kg"
-            )    
+            print(fighter)    
 
 def view_stats():
     print("View fighter stats")
 
-def edit_fighter():
+def edit_fighter(fighters):
     search = input("Fighter's name: ").casefold()
                
     found = False
     
     for fighter in fighters:
-        if fighter["name"].casefold() == search:
+        if fighter.name.casefold() == search:
             print("\nFighter found!.\n")
     
             new_age = input(
-                f"Age [{fighter['age']}] | New age: "
+                f"Age [{fighter.age}] | New age: "
             )
     
             new_weight = input(
-                f"Weight [{fighter['weight']}] | New weight: "
+                f"Weight [{fighter.weight}] | New weight: "
             )
     
             if new_age != "":
-                fighter["age"] = int(new_age)
+                fighter.age = int(new_age)
     
             if new_weight != "":
-                fighter["weight"] = float(new_weight)
+                fighter.weight = float(new_weight)
     
             print("\nFighter updated successfully!")
             found = True
@@ -97,16 +94,16 @@ while True:
            create_fighter(fighters)
 
         elif option == 2:
-            list_fighters()
+            list_fighters(fighters)
 
         elif option == 3:
-            search_fighters()
+            search_fighters(fighters)
 
         elif option == 4:
             view_stats()
 
         elif option == 5:
-            edit_fighter()
+            edit_fighter(fighters)
 
         elif option == 6:
             break
